@@ -1,0 +1,9 @@
+<main> ::= <expr>
+         | <float_list>
+<operator> ::= "➕" | "➖" | "✖" | "➗" | "📥"
+<expr> ::= <float_list>
+         | <operator> <expr>
+         | <expr> <operator> <expr>
+         | <operator> "📥" <expr>
+float_list ::= "-"? ["0"-"9"]+ ("." ["0"-"9"]+)? <float_list>
+             |
