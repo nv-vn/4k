@@ -10,7 +10,7 @@ rule token = parse
     { token lexbuf }
   | ['\n']
     { EOL }
-  | '-'? ['0'-'9']+ ('.' ['0'-'9']+)? as f
+  | '-'? ['0'-'9']+ '.'? ['0'-'9']* as f
     { FLOAT (float_of_string f) }
   | "➕"
     { PLUS }
