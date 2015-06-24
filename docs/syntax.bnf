@@ -5,5 +5,7 @@
          | <operator> <expr>
          | <expr> <operator> <expr>
          | <operator> "📥" <expr>
-float_list ::= "-"? [0-9]+ "."? [0-9]* <float_list>
-             | "-"? [0-9]+ "."? [0-9]*
+<float_list> ::= <float_literal> <float_list>
+               | <float_literal>
+<float_literal> ::= "-"? [0-9]+ "."? [0-9]*
+                  | "-"? "." [0-9]+

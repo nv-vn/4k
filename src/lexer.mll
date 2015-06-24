@@ -12,6 +12,8 @@ rule token = parse
     { EOL }
   | '-'? ['0'-'9']+ '.'? ['0'-'9']* as f
     { FLOAT (float_of_string f) }
+  | '-'? '.' ['0'-'9']+ as f
+    { FLOAT (float_of_string f) }
   | "➕"
     { PLUS }
   | "➖"
