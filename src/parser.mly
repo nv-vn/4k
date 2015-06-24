@@ -43,7 +43,7 @@ expr:
   | operator REDUCE expr
     { Operation (ReduceOp ($1, $3)) }
 float_list:
-  |
-    { [] }
+  | FLOAT
+    { [$1] }
   | FLOAT float_list
     { $1 :: $2 }
