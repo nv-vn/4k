@@ -18,8 +18,6 @@
 main:
   | expr EOL
     { $1 }
-  | float_list EOL
-    { List $1 }
   | EOL
     { List [] }
 operator:

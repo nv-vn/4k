@@ -1,5 +1,4 @@
 <main> ::= <expr>
-         | <float_list>
 <operator> ::= "➕" | "➖" | "✖" | "➗" | "📥"
 <expr> ::= <float_list>
          | <operator> <expr>
