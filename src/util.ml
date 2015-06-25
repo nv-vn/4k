@@ -26,4 +26,3 @@ let multimap2 f l r =
         end
       | (_, _) -> failwith "Error while filtering lists" |> (fun _ -> [])
     in loop [] (l, r)
-  
