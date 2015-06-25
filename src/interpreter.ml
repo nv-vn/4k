@@ -88,5 +88,19 @@ let interpret = function
           | Reduce -> infix_reduce left right
           | _ -> failwith "Invalid operation" |> (fun _ -> List [])
         end
+      | ReduceOp (op, ast) ->
+        begin
+          match ast with
+          | List l ->
+            begin
+              match op with
+              | Plus -> List [Batteries.List.reduce ( +. ) l]
+              | Minus -> List [Batteries.List.reduce ( -. ) l]
+              | Times -> List [Batteries.List.reduce ( *. ) l]
+              | Divide -> List [Batteries.List.reduce ( /. ) l]
+              | _ -> failwith "Invalid operation in reduction" |> (fun _ -> List [])
+            end
+          | _ -> failwith "Invalid application of reduction" |> (fun _ -> List [])
+        end
       | _ -> failwith "Invalid usage of operator" |> (fun _ -> List [])
     end
