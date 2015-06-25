@@ -4,13 +4,14 @@
 cd src
 ocamllex lexer.mll &&
 menhir parser.mly &&
+ocamlc -c util.ml &&
 ocamlc -c ast.ml &&
 ocamlc -c parser.mli &&
 ocamlc -c lexer.ml &&
 ocamlc -c parser.ml &&
-ocamlc -c interpreter.ml &&
+ocamlfind ocamlc -package batteries -c interpreter.ml &&
 ocamlc -c repl.ml &&
-ocamlc -o ../4repl ast.cmo lexer.cmo parser.cmo interpreter.cmo repl.cmo
+ocamlfind ocamlc -package batteries -linkpkg -o ../4repl util.cmo ast.cmo lexer.cmo parser.cmo interpreter.cmo repl.cmo
 rm *.cmo *.cmi
 rm lexer.ml parser.ml parser.mli
 cd ..

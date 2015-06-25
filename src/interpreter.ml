@@ -12,6 +12,58 @@ let prefix_times = function
 let prefix_divide = function
   | List l -> List (List.map (fun n -> 1.0 /. n) l)
   | _ -> failwith "Invalid application of prefix function" |> (fun _ -> List [])
+
+let infix_plus a b =
+  match (a, b) with
+  | (List a', List b') ->
+    begin
+      if List.length a' <> List.length b' then
+        failwith "Size error" |> (fun _ -> List [])
+      else
+        List (List.map2 (fun l r -> l +. r) a' b')
+    end
+  | _ -> failwith "Invalid application of infix function" |> (fun _ -> List [])
+let infix_minus a b =
+  match (a, b) with
+  | (List a', List b') ->
+    begin
+      if List.length a' <> List.length b' then
+        failwith "Size error" |> (fun _ -> List [])
+      else
+        List (List.map2 (fun l r -> l -. r) a' b')
+    end
+  | _ -> failwith "Invalid application of infix function" |> (fun _ -> List [])
+let infix_times a b =
+  match (a, b) with
+  | (List a', List b') ->
+    begin
+      if List.length a' <> List.length b' then
+        failwith "Size error" |> (fun _ -> List [])
+      else
+        List (List.map2 (fun l r -> l *. r) a' b')
+    end
+  | _ -> failwith "Invalid application of infix function" |> (fun _ -> List [])
+let infix_divide a b =
+  match (a, b) with
+  | (List a', List b') ->
+    begin
+      if List.length a' <> List.length b' then
+        failwith "Size error" |> (fun _ -> List [])
+      else
+        List (List.map2 (fun l r -> l /. r) a' b')
+    end
+  | _ -> failwith "Invalid application of infix function" |> (fun _ -> List [])
+let infix_reduce a b =
+  match (a, b) with
+  | (List a', List b') ->
+    begin
+      if List.length a' <> List.length b' then
+        failwith "Size error" |> (fun _ -> List [])
+      else
+        List (Util.multimap2 (fun l r -> if l < 0.0 then Batteries.List.make (-int_of_float l) 0.0 else BatList.make (int_of_float l) r) a' b')
+    end
+  | _ -> failwith "Invalid application of infix function" |> (fun _ -> List [])
+
 let interpret = function
   | List l -> List l
   | Operation a ->
@@ -24,6 +76,16 @@ let interpret = function
           | Minus -> prefix_minus ast
           | Times -> prefix_times ast
           | Divide -> prefix_divide ast
+          | _ -> failwith "Invalid operation" |> (fun _ -> List [])
+        end
+      | Infix (op, left, right) ->
+        begin
+          match op with
+          | Plus -> infix_plus left right
+          | Minus -> infix_minus left right
+          | Times -> infix_times left right
+          | Divide -> infix_divide left right
+          | Reduce -> infix_reduce left right
           | _ -> failwith "Invalid operation" |> (fun _ -> List [])
         end
       | _ -> failwith "Invalid usage of operator" |> (fun _ -> List [])
