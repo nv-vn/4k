@@ -5,11 +5,11 @@
 %token EOL
 %token <float> FLOAT
 %token PLUS MINUS TIMES DIVIDE
-%token REDUCE
+%token REDUCE STRETCH
 
 %left PLUS MINUS
 %left TIMES DIVIDE
-%left REDUCE
+%left REDUCE STRETCH
 
 %start <Ast.ast> main
 
@@ -31,6 +31,8 @@ operator:
     { Divide }
   | REDUCE
     { Reduce }
+  | STRETCH
+    { Stretch }
 expr:
   | float_list
     { List $1 }

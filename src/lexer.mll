@@ -24,6 +24,8 @@ rule token = parse
     { DIVIDE }
   | "📥"
     { REDUCE }
+  | "↔"
+    { STRETCH }
   | eof 
     { raise Eof }
   | _

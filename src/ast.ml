@@ -7,6 +7,7 @@ and operator =
   | Times
   | Divide
   | Reduce
+  | Stretch
 and application =
   | Prefix of operator * ast
   | Infix of operator * ast * ast 

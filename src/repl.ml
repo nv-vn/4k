@@ -20,6 +20,7 @@ and fmt_op = function
   | Times -> "x"
   | Divide -> "÷"
   | Reduce -> "/"
+  | Stretch -> "<=>"
 
 let _ =
   try

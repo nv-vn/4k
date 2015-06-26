@@ -16,6 +16,10 @@ and prefix_divide = function
   | List l -> List (List.map (fun n -> 1.0 /. n) l)
   | Operation o -> interpret (Operation o) |> prefix_divide
   | _ -> failwith "Invalid application of prefix function" |> (fun _ -> List [])
+and prefix_stretch = function
+  | List l -> List [float_of_int (List.length l)]
+  | Operation o -> interpret (Operation o) |> prefix_stretch
+  | _ -> failwith "Invalid application of prefix function" |> (fun _ -> List [])
 
 and infix_plus a b =
   match (a, b) with
@@ -92,6 +96,15 @@ and infix_reduce a b =
       infix_reduce a r
     end
   | _ -> failwith "Invalid application of infix function" |> (fun _ -> List [])
+and infix_stretch a b =
+  match (a, b) with
+  | (List a', List b') -> List (a' @ b')
+  | (List _, Operation _) ->
+    begin
+      let r = interpret b in
+      infix_stretch a r
+    end
+  | _ -> failwith "Invalid application of infix function" |> (fun _ -> List [])
 
 and interpret = function
   | List l -> List l
@@ -105,6 +118,7 @@ and interpret = function
           | Minus -> prefix_minus ast
           | Times -> prefix_times ast
           | Divide -> prefix_divide ast
+          | Stretch -> prefix_stretch ast
           | _ -> failwith "Invalid operation" |> (fun _ -> List [])
         end
       | Infix (op, left, right) ->
@@ -115,6 +129,7 @@ and interpret = function
           | Times -> infix_times left right
           | Divide -> infix_divide left right
           | Reduce -> infix_reduce left right
+          | Stretch -> infix_stretch left right
           | _ -> failwith "Invalid operation" |> (fun _ -> List [])
         end
       | ReduceOp (op, ast) ->
