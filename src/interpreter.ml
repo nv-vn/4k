@@ -146,5 +146,19 @@ and interpret = function
             end
           | _ -> failwith "Invalid application of reduction" |> (fun _ -> List [])
         end
+      | ExpandOp (op, ast) ->
+        begin
+          match ast with
+          | List l ->
+            begin
+              match op with
+              | Plus -> List (Util.expand ( +. ) l)
+              | Minus -> List (Util.expand ( -. ) l)
+              | Times -> List (Util.expand ( *. ) l)
+              | Divide -> List (Util.expand ( /. ) l)
+              | _ -> failwith "Invalid operation in reduction" |> (fun _ -> List [])
+            end
+          | _ -> failwith "Invalid application of reduction" |> (fun _ -> List [])
+        end
       | _ -> failwith "Invalid usage of operator" |> (fun _ -> List [])
     end

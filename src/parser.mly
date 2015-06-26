@@ -5,11 +5,11 @@
 %token EOL
 %token <float> FLOAT
 %token PLUS MINUS TIMES DIVIDE
-%token REDUCE STRETCH
+%token REDUCE EXPAND STRETCH
 
 %left PLUS MINUS
 %left TIMES DIVIDE
-%left REDUCE STRETCH
+%left REDUCE EXPAND STRETCH
 
 %start <Ast.ast> main
 
@@ -42,6 +42,8 @@ expr:
     { Operation (Infix ($2, $1, $3)) }
   | operator REDUCE expr
     { Operation (ReduceOp ($1, $3)) }
+  | operator EXPAND expr
+    { Operation (ExpandOp ($1, $3)) }
 float_list:
   | FLOAT
     { [$1] }

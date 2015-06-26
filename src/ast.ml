@@ -12,3 +12,4 @@ and application =
   | Prefix of operator * ast
   | Infix of operator * ast * ast 
   | ReduceOp of operator * ast
+  | ExpandOp of operator * ast

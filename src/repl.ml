@@ -10,6 +10,7 @@ let rec fmt = function
       | Prefix (op, ast) -> fmt_op op ^ fmt ast
       | Infix (op, left, right) -> fmt left ^ fmt_op op ^ fmt right
       | ReduceOp (op, ast) -> fmt_op op ^ "/ " ^ fmt ast
+      | ExpandOp (op, ast) -> fmt_op op ^ "\ " ^ fmt ast
     end
 and fmt_list = function
   | [] -> ""
