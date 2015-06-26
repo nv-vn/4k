@@ -28,7 +28,7 @@ and infix_plus a b =
       if List.length a' <> List.length b' then
         failwith "Size error" |> (fun _ -> List [])
       else
-        List (List.map2 (fun l r -> l +. r) a' b')
+        List (List.map2 ( +. ) a' b')
     end
   | (List _, Operation _) ->
     begin
@@ -43,7 +43,7 @@ and infix_minus a b =
       if List.length a' <> List.length b' then
         failwith "Size error" |> (fun _ -> List [])
       else
-        List (List.map2 (fun l r -> l -. r) a' b')
+        List (List.map2 ( -. ) a' b')
     end
   | (List _, Operation _) ->
     begin
@@ -58,7 +58,7 @@ and infix_times a b =
       if List.length a' <> List.length b' then
         failwith "Size error" |> (fun _ -> List [])
       else
-        List (List.map2 (fun l r -> l *. r) a' b')
+        List (List.map2 ( *. ) a' b')
     end
   | (List _, Operation _) ->
     begin
@@ -73,7 +73,7 @@ and infix_divide a b =
       if List.length a' <> List.length b' then
         failwith "Size error" |> (fun _ -> List [])
       else
-        List (List.map2 (fun l r -> l /. r) a' b')
+        List (List.map2 ( /. ) a' b')
     end
   | (List _, Operation _) ->
     begin
